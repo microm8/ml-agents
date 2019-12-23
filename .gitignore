@@ -103,3 +103,11 @@ venv/
 .coverage
 coverage.xml
 /htmlcov/
+.vs/ProjectSettings.json
+.vs/slnx.sqlite
+.vs/VSWorkspaceState.json
+.vs/Unity-ml-agents/v16/Browse.VC.db
+ml-agents/.vs/ProjectSettings.json
+ml-agents/.vs/PythonSettings.json
+ml-agents/.vs/slnx.sqlite
+ml-agents/.vs/VSWorkspaceState.json

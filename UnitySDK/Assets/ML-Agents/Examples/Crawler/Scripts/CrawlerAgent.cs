@@ -111,6 +111,11 @@ public class CrawlerAgent : Agent
         }
     }
 
+    public override float[] Heuristic()
+    {
+        return new float[20];
+    }
+
     public override void CollectObservations()
     {
         m_JdController.GetCurrentJointForces();
