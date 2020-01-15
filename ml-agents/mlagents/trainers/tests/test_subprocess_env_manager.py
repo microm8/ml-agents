@@ -1,4 +1,4 @@
-import unittest.mock as mock
+from unittest import mock
 from unittest.mock import Mock, MagicMock
 import unittest
 from queue import Empty as EmptyQueue
@@ -101,10 +101,6 @@ class SubprocessEnvManagerTest(unittest.TestCase):
                 # Check that the "last steps" are set to the value returned for each step
                 self.assertEqual(
                     manager.env_workers[i].previous_step.current_all_brain_info, i
-                )
-                self.assertEqual(
-                    manager.env_workers[i].previous_step.previous_all_brain_info,
-                    last_steps[i].current_all_brain_info,
                 )
         assert res == [
             manager.env_workers[0].previous_step,

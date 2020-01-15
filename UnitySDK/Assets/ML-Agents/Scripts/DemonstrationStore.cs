@@ -1,7 +1,8 @@
 using System.IO;
 using System.IO.Abstractions;
 using Google.Protobuf;
-using UnityEngine;
+using System.Collections.Generic;
+using MLAgents.Sensor;
 
 namespace MLAgents
 {
@@ -12,7 +13,7 @@ namespace MLAgents
     {
         public const int MetaDataBytes = 32; // Number of bytes allocated to metadata in demo file.
         readonly IFileSystem m_FileSystem;
-        const string k_DemoDirecory = "Assets/Demonstrations/";
+        const string k_DemoDirectory = "Assets/Demonstrations/";
         const string k_ExtensionType = ".demo";
 
         string m_FilePath;
@@ -49,9 +50,9 @@ namespace MLAgents
         /// </summary>
         void CreateDirectory()
         {
-            if (!m_FileSystem.Directory.Exists(k_DemoDirecory))
+            if (!m_FileSystem.Directory.Exists(k_DemoDirectory))
             {
-                m_FileSystem.Directory.CreateDirectory(k_DemoDirecory);
+                m_FileSystem.Directory.CreateDirectory(k_DemoDirectory);
             }
         }
 
@@ -62,12 +63,12 @@ namespace MLAgents
         {
             // Creates demonstration file.
             var literalName = demonstrationName;
-            m_FilePath = k_DemoDirecory + literalName + k_ExtensionType;
+            m_FilePath = k_DemoDirectory + literalName + k_ExtensionType;
             var uniqueNameCounter = 0;
             while (m_FileSystem.File.Exists(m_FilePath))
             {
                 literalName = demonstrationName + "_" + uniqueNameCounter;
-                m_FilePath = k_DemoDirecory + literalName + k_ExtensionType;
+                m_FilePath = k_DemoDirectory + literalName + k_ExtensionType;
                 uniqueNameCounter++;
             }
 
@@ -91,7 +92,7 @@ namespace MLAgents
         /// <summary>
         /// Write AgentInfo experience to file.
         /// </summary>
-        public void Record(AgentInfo info)
+        public void Record(AgentInfo info, List<Observation> observations)
         {
             // Increment meta-data counters.
             m_MetaData.numberExperiences++;
@@ -102,7 +103,7 @@ namespace MLAgents
             }
 
             // Write AgentInfo to file.
-            var agentProto = info.ToInfoActionPairProto();
+            var agentProto = info.ToInfoActionPairProto(observations);
             agentProto.WriteDelimitedTo(m_Writer);
         }
 

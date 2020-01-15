@@ -1,4 +1,4 @@
-import unittest.mock as mock
+from unittest import mock
 import pytest
 import yaml
 import os
@@ -59,7 +59,7 @@ def sac_dummy_config():
         use_recurrent: false
         vis_encode_type: simple
         behavioral_cloning:
-            demo_path: ./demos/ExpertPyramid.demo
+            demo_path: ./UnitySDK/Assets/ML-Agents/Examples/Pyramids/Demos/ExpertPyramid.demo
             strength: 1.0
             steps: 10000000
         reward_signals:
